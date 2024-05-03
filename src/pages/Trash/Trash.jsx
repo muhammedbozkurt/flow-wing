@@ -105,7 +105,7 @@ if (!mails) {
                       <p
                         dangerouslySetInnerHTML={{
                           __html: getText(
-                            excerpt(item.emailLog.sentEmailBody, 120)
+                            excerpt(item.emailLog.sentEmailBody, 100)
                           )
                         }}
                       />
