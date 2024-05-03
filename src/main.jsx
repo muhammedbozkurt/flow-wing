@@ -5,7 +5,7 @@ import "./index.css"
 import { BrowserRouter } from "react-router-dom"
 import "react-quill/dist/quill.snow.css"
 import ReduxProvider from "./providers/ReduxProvider.jsx"
-
+// deneme 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ReduxProvider>
