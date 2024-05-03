@@ -1,0 +1,132 @@
+.inbox-page-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 20px;
+  width: 90%;
+}
+
+.inbox-mail-summary span {
+  font-weight: bold;
+  display: inline-block;
+  width: 80px;
+  color: #45474b;
+}
+
+.user-icon-home {
+  width: fit-content;
+  height: fit-content;
+}
+
+.mail-title {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: stretch;
+  color: #45474b;
+}
+
+.mail-actions {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+  margin-top: 20px;
+}
+
+.mail-actions .icons {
+  margin-right: 20px;
+  justify-content: center;
+}
+
+.mail-sender {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* Elemanları ortala */
+}
+
+.sender-name {
+  flex: 1;
+  /* Tam genişlikte sırala */
+}
+
+.mail-action-btns {
+  outline: none;
+  background: inherit;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.icon-with-text {
+  display: flex;
+  align-items: center;
+}
+
+.icon-with-text span {
+  margin-left: 5px;
+  /* İhtiyaca göre boşluk ekleyebilirsiniz */
+}
+
+.mail-sender-email {
+  color: #a9a9a9;
+}
+
+.mail-attachments {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 50px;
+  width: 700px;
+}
+
+.attachment-content {
+  display: flex;
+  align-items: center;
+}
+
+.attachment-content span {
+  margin-left: 5px;
+  /* İhtiyaca göre boşluk ekleyebilirsiniz */
+}
+.mail-answer-content {
+  padding-left: 30px;
+  max-width: 600px;
+}
+.mail-answer-mail-body {
+  max-width: 600px;
+}
+.forward-modal-form span {
+  display: flex;
+  font-weight: bold;
+}
+.forward-modal-form {
+  display: flex;
+  flex-direction: column;
+}
+.reply-modal-form span {
+  font-weight: bold;
+  font-size: 16px;
+}
+.reply-modal-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-icon-inbox {
+  margin: 40px;
+}
+
+.inbox-mail-attachment {
+  display: flex;
+  flex-direction: row;
+  width: 700px;
+}
+.attachment-download-btn {
+  width: 60px;
+  height: 35px;
+  margin-left: 20px;
+}
+.mail-body{
+  overflow-x: scroll;
+}

@@ -1,0 +1,132 @@
+.home-page-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 20px;
+}
+.inbox {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.mail-content {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.mail-content:hover {
+  box-shadow: 0px 5px 10px -8px #c0440e;
+}
+
+.inbox a {
+  text-decoration: none; /* Linkin altını çizme */
+  color: inherit; /* Link rengini miras al */
+}
+/* .inbox-mail-unopened:hover{
+  background: #EEF5FF;
+  cursor: pointer;
+} */
+.inbox-mail-unopened {
+  width: 100%;
+  border-radius: 10px;
+  min-height: 30px;
+ /* max-height: 160px;*/
+  padding: 10px;
+  border-left: 1px;
+}
+.user-icon-home {
+  border: 1px solid;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Make border-radius 50% for a perfect circle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 15px;
+}
+
+.inbox-mail-opened {
+  width: 100%;
+  border-radius: 10px;
+  min-height: 30px;
+  padding: 10px;
+  border: 0.5px solid white;
+}
+.inbox-mail-sender {
+  display: inline-flex;
+  color: black;
+  font-size: 15px;
+  padding: 10px;
+  width: 300px;
+}
+.mail-primary-icon {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mail-primary-icon:hover {
+  background-color: #d8d9da;
+}
+.inbox-mail-title {
+  font-weight: bold;
+  color: #2d3250;
+}
+.inbox-mail-body,
+.inbox-mail-title {
+  padding-right: 50px;
+  padding-left: 95px;
+}
+.inbox-mail-body {
+  color: #424769;
+  
+}
+.inbox-mail-body p{
+  max-height: 40px;
+  overflow: hidden; 
+}
+.mail-attachment {
+  border: 0.5px solid;
+  border-radius: 15px;
+  padding: 5px;
+  margin: 5px;
+  text-align: center;
+  width: 70px;
+}
+.repeat-delete-sent-time-section {
+  padding-top: 15px;
+  padding-right: 10px;
+}
+.inbox-sent-time {
+  width: max-content;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  color: #a9a9a9;
+  align-items: center;
+}
+.is-repeating-icon {
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+.inbox-mail-attachment {
+  float: inline-end;
+}
+.attachment-img {
+  width: 50px;
+  height: 50px;
+}
+h2 {
+  color: #546e7a;
+}
+.user-section-home {
+  display: flex;
+  flex-direction: row;
+}
+.user-name {
+  margin-top: 30px;
+}
