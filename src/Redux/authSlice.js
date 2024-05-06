@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios"
+const APIURL = import.meta.env.VITE_API_URL;
 
 // Retrieve user from local storage
 const getInitialUser = () => {
@@ -7,14 +8,17 @@ const getInitialUser = () => {
   return storedUser ? JSON.parse(storedUser) : null
 }
 //Login
-export const loginUser = createAsyncThunk("user/login", async (values) => {
+export const loginUser = createAsyncThunk("user/login", async (registrationNumber) => {
+  console.log(registrationNumber)
   const request = await axios.post(
-    "http://arank124v/FlowWingAPI/api/Auth/login",
-    values
+    `http://localhost:5173/api/Auth/loginWithArcelikID/`+registrationNumber
+    
   )
-  const response = await request.data
+  const response = await request.data 
+  console.log(registrationNumber)
   localStorage.setItem("user", JSON.stringify(response))
-  return response // action.payload contains whatever we returned here
+  return response; // action.payload contains whatever we returned here
+ 
 })
 // Register
 export const registerUser = createAsyncThunk(
@@ -34,6 +38,7 @@ export const registerUser = createAsyncThunk(
 export const logoutUser = createAsyncThunk("user/logout", async () => {
   // kullanıcı bilgilerini localStorage'dan temizliyoruz.
   localStorage.removeItem("user")
+  localStorage.clear()
   return null // Çıkış işlemi başarılı olduğunda null döndürebilirsiniz.
 })
 

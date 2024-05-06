@@ -2,7 +2,8 @@ import axios from "axios"
 
 // Create an instance of Axios
 const apiAxios = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+ // baseURL: import.meta.env.VITE_API_URL,
+ baseURL:import.meta.env.VITE_DEVELOPMENT_API_URL,
   mode: "cors"
 })
 apiAxios.interceptors.request.use(

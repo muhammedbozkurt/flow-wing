@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import "./login.css"
 import { useNavigate } from "react-router"
 import { Divider } from "antd"
@@ -10,73 +10,48 @@ import { useDispatch, useSelector } from "react-redux"
 import { loginUser } from "../../Redux/authSlice"
 
 const Login = () => {
+  const [registrationNumber,setRgeistrationNumber]= useState("")
   let navigate = useNavigate()
   const dispatch = useDispatch()
   // redux state
   const { loading, error } = useSelector((state) => state.user)
   // login handler function
-  const handleLogin = (values) => {
-    dispatch(loginUser(values)).then((result) => {
-      //console.log(result)
+  const handleLogin = () => {
+    dispatch(loginUser(registrationNumber)).then((result) => {
+    //  console.log(registrationNumber)
       if (result.payload) {
         navigate("/home")
       }
     })
   }
-  //validations
+  // //validations
 
-  const validationSchema = Yup.object({
-    password: Yup.string()
-      .required("Zorunlu alan")
-      .min(4, "Şifre en az 4 karakter içermelidir")
-      .max(8, "Şifre en fazla 8 karakterden oluşabilir."),
-    email: Yup.string()
-      .email("Geçersiz e-mail adresi")
-      .required("Zorunlu alan")
-      .test(
-        "arcelikEmail",
-        "Yalnızca Arçelik maillerinizle giriş yapabilirsiniz",
-        function (value) {
-          // E-posta adresinin @arcelik.com ile bitip bitmediğini kontrol et
-          if (value && value.endsWith("@arcelik.com")) {
-            return true // Geçerli
-          }
-          return false // Geçersiz
-        }
-      )
-  })
-
+  // const validationSchema = Yup.object({
+  //   registrationNumber: Yup.string()
+  //    // .matches(/^\d{4}$/, "Geçersiz sicil numarası") // 4 basamaklı sayı olmalı
+  //     .required("Zorunlu alan")
+  // });
+  
   return (
     <div className="login-page-content">
       <div className="login-page-form">
         <p>Hoş Geldiniz</p>
         <Divider />
-        <Formik
-          initialValues={{
-            password: "",
-            email: ""
-          }}
-          validationSchema={validationSchema}
-          onSubmit={(values) => {
-            console.log(values)
-            handleLogin(values)
-          }}
-        >
-          {({ handleSubmit, handleChange, values, errors }) => (
+        
             <form>
               <div className="input-areas">
                 <TextField
                   id="standard-basic"
-                  name="email"
-                  label="Mail "
+                  name="registrationNumber"
+                  label="Sicil Numarası "
                   variant="standard"
-                  onChange={handleChange}
-                  value={values.email}
+                  onChange={(e)=>setRgeistrationNumber(e.target.value)}
+                  value={registrationNumber}
                 />
               </div>
 
-              {errors.email && (
-                <div className="error-message">{errors.email}</div>
+   {/*            {errors.registrationNumber && (
+                <div className="error-message">{errors.registrationNumber}</div>
               )}
 
               <div className="input-areas">
@@ -93,7 +68,7 @@ const Login = () => {
               </div>
               {errors.password && (
                 <div className="error-message">{errors.password}</div>
-              )}
+              )} */}
 
               {/* LINK TO REGISTER PAGE IF USER DOESN'T HAVE AN ACCOUNT */}
               <div className="register-link">
@@ -102,7 +77,8 @@ const Login = () => {
 
               {/* SUBMIT BUTTON */}
 
-              <button className="sign-in-btn" onClick={handleSubmit}>
+              <button className="sign-in-btn" onClick={() => handleLogin()}>
+
                 {loading ? (
                   <span className="loading loading-dots loading-lg"></span>
                 ) : (
@@ -110,8 +86,7 @@ const Login = () => {
                 )}
               </button>
             </form>
-          )}
-        </Formik>
+       
       </div>
     </div>
   )

@@ -32,11 +32,11 @@ function App() {
       <Route
         path={HOME_ROUTE}
         element={
-          //<RequireAuth>
+          <RequireAuth>
             <_Layout>
               <Home />{" "}
             </_Layout>
-          //</RequireAuth>
+          </RequireAuth>
         }
       />
       <Route
@@ -105,10 +105,10 @@ function App() {
         }
       />
       <Route path={REGISTER_ROUTE} element={<Register />} />
-      <Route path={`${baseURL}`} element = {<Login />}/>
+      <Route path={"/"} element = {<Login />}/> 
       <Route path={ERROR_ROUTE} element={<ErrorPage />} />
     </Routes>
   )
 }
-
+//`${baseURL}`
 export default App
