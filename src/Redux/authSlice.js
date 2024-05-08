@@ -11,7 +11,7 @@ const getInitialUser = () => {
 export const loginUser = createAsyncThunk("user/login", async (registrationNumber) => {
   console.log(registrationNumber)
   const request = await axios.post(
-    `http://localhost:5173/api/Auth/loginWithArcelikID/`+registrationNumber
+    `http://localhost:5232/FlowWingAPI/api/Auth/login/`+registrationNumber
     
   )
   const response = await request.data 
@@ -23,10 +23,10 @@ export const loginUser = createAsyncThunk("user/login", async (registrationNumbe
 // Register
 export const registerUser = createAsyncThunk(
   "user/register",
-  async (values) => {
+  async (registrationNumber) => {
     const request = await axios.post(
-      "http://arank124v/FlowWingAPI/api/Auth/signup",
-      values
+      "http://localhost:5232/FlowWingAPI/api/Auth/signup?sicil="+
+      registrationNumber
     )
     const response = await request.data
     // You may handle the registration success or store data accordingly

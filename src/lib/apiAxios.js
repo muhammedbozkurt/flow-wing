@@ -1,29 +1,31 @@
 import axios from "axios"
 
-// Create an instance of Axios
 const apiAxios = axios.create({
- // baseURL: import.meta.env.VITE_API_URL,
- baseURL:import.meta.env.VITE_DEVELOPMENT_API_URL,
+ baseURL:import.meta.env.VITE_API_URL,
   mode: "cors"
 })
 apiAxios.interceptors.request.use(
   function (config) {
-    const userData = localStorage.getItem("user")
-    const userObject = JSON.parse(userData)
-    const userToken = userObject.token
-    config.headers = {
-      ...config.headers,
-      Authorization: `Bearer ${userToken}`,
-      "Content-Type": "multipart/form-data"
-    }
+    const userData = localStorage.getItem("user");
+if (userData) {
+  const userObject = JSON.parse(userData);
+  const userToken = userObject.token;
+  config.headers = {
+    ...config.headers,
+    Authorization: `Bearer ${userToken}`,
+    "Content-Type": "multipart/form-data"
+  };
+} else {
 
-    // Do something before request is sent
-    // console.log("Request Interceptor - Request Config: ", config)
+  console.error("Kullanıcı verisi bulunamadı veya oturum açılmamış.");
+}
+
+  
     return config
   },
   function (error) {
     // Do something with request error
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
 )
 
