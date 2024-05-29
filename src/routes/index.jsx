@@ -18,4 +18,5 @@ const baseURL = import.meta.env.VITE_APP_BASE_URL;
  export const INBOX_ROUTE = `/inbox/:id`
  export const SENTBOX_ROUTE = `/sentbox/:id`
  export const TRASH_ROUTE = "/trash"
+ export const ADMIN_ROUTE = "/admin"
  export const ERROR_ROUTE = "*"

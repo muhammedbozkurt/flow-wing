@@ -11,6 +11,7 @@ import Inbox from "./pages/Inbox/Inbox"
 import Trash from "./pages/Trash/Trash"
 import RequireAuth from "./components/RequireAuth"
 import {
+  ADMIN_ROUTE,
   COMPOSE_NEW_ROUTE,
   ERROR_ROUTE,
   HOME_ROUTE,
@@ -23,6 +24,8 @@ import {
 } from "./routes"
 import ErrorPage from "./pages/404/ErrorPage"
 import Sentbox from "./pages/Sentbox/Sentbox"
+import Admin from "./pages/Admin/Admin"
+import ProtectedRouteAdmin from "./components/ProtectedRouteForAdmin"
 const baseURL = import.meta.env.VITE_APP_BASE_URL;
 
 function App() {
@@ -39,6 +42,19 @@ function App() {
           </RequireAuth>
         }
       />
+     
+        <Route
+        path={ADMIN_ROUTE}
+        element={
+       
+            <_Layout>
+              <Admin />{" "}
+            </_Layout>
+         
+        }
+      /> <Route element={<ProtectedRouteAdmin/>}>
+      </Route>
+       
       <Route
         path={SENT_ROUTE}
         element={

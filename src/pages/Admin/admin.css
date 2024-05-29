@@ -1,0 +1,30 @@
+.admin-page-content{
+          margin-left: 4%;
+}
+
+
+.add-user-section,.delete-user-section{
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+}
+.user-action-buttons{
+          width: 120px;
+          height: 50px;
+          text-align: center;
+          border-radius: 20px;
+}
+.add-btn{
+
+          background-color: #01e396;
+}
+.delete-user-btn{
+          background-color: #ff4560 ;
+}
+.ant-input{
+width: 120px;
+height: 40px;
+}
+.ant-select{
+          width: 120;
+}

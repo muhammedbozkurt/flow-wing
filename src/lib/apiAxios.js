@@ -7,27 +7,32 @@ const apiAxios = axios.create({
 apiAxios.interceptors.request.use(
   function (config) {
     const userData = localStorage.getItem("user");
-if (userData) {
-  const userObject = JSON.parse(userData);
-  const userToken = userObject.token;
-  config.headers = {
-    ...config.headers,
-    Authorization: `Bearer ${userToken}`,
-    "Content-Type": "multipart/form-data"
-  };
-} else {
 
-  console.error("Kullanıcı verisi bulunamadı veya oturum açılmamış.");
-}
+    if (userData) {
+      try {
+        const userObject = JSON.parse(userData);
+        const userToken = userObject.token;
+        config.headers = {
+          ...config.headers,
+          Authorization: `Bearer ${userToken}`,
+          "Content-Type": "multipart/form-data"
+        };
+      } catch (error) {
+        console.error("Kullanıcı verisi geçersiz JSON formatında:", error);
+      }
+    } else {
+      console.error("Kullanıcı verisi bulunamadı veya oturum açılmamış.");
+    }
 
-  
-    return config
+    return config;
   },
   function (error) {
-    // Do something with request error
     return Promise.reject(error);
   }
-)
+);
+
+
+
 
 // Add a response interceptor
 apiAxios.interceptors.response.use(
