@@ -5,13 +5,16 @@ import { addUser, deleteUser } from "../../services/userService"
 
 const Admin = () => {
   const [sicil, setSicil] = useState("")
-  const [roleName, setRoleName] = useState("user")
-  const [isApplicationUser, setIsApplicationUser] = useState(true)
+  const [roleName, setRoleName] = useState("User")
+  const [isApplicationUser, setIsApplicationUser] = useState("1")
   const [deletingSicil, setDeletingSicil] = useState("")
 
-  const credentials = { sicil: sicil.toUpperCase(), roleName, isApplicationUser }
-
   const handleAddUser = () => {
+    const credentials = {
+      sicil,
+      roleName,
+      isApplicationUser: isApplicationUser === "1" ? 1 : 0
+    }
     addUser(credentials)
   }
 
@@ -29,32 +32,26 @@ const Admin = () => {
         <Input
           placeholder="Sicil"
           value={sicil}
-          onChange={(e) => {
-            setSicil(e.target.value)
-          }}
+          onChange={(e) => setSicil(e.target.value)}
         />
         <label>Rol</label>
         <Select
-          defaultValue="user"
+          defaultValue="User"
           style={{ width: 120 }}
-          onChange={(value) => {
-            setRoleName(value)
-          }}
+          onChange={(value) => setRoleName(value)}
           options={[
-            { value: "user", label: "User" },
+            { value: "User", label: "User" },
             { value: "admin", label: "Admin" }
           ]}
         />
         <label>Application user mı</label>
         <Select
-          defaultValue="true"
+          defaultValue="1"
           style={{ width: 120 }}
-          onChange={(value) => {
-            setIsApplicationUser(value === "true")
-          }}
+          onChange={(value) => setIsApplicationUser(value)}
           options={[
-            { value: "true", label: "Evet" },
-            { value: "false", label: "Hayır" }
+            { value: "1", label: "Evet" },
+            { value: "0", label: "Hayır" }
           ]}
         />
         <button
@@ -71,9 +68,7 @@ const Admin = () => {
         </Divider>
         <Input
           placeholder="Sicil"
-          onChange={(e) => {
-            setDeletingSicil(e.target.value)
-          }}
+          onChange={(e) => setDeletingSicil(e.target.value)}
         />
         <button
           className="user-action-buttons delete-user-btn"

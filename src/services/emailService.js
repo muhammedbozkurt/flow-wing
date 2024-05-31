@@ -1,7 +1,7 @@
 import apiAxios from "../lib/apiAxios"
 
 const getMails = () => {
-  return apiAxios.get("EmailLogs/GetUserSentEmails")
+  return apiAxios.get("EmailLogs/GetUserRecievedEmails")
 }
 
 const sendMail = (values) => {
@@ -48,7 +48,7 @@ const sendScheduledMail = (values) => {
 }
 
 const getSentMails = () => {
-  return apiAxios.get("EmailLogs/GetUserReceivedEmails")
+  return apiAxios.get("EmailLogs/GetUserSendedEmails")
 }
 
 const getAllUsers = () => {
@@ -108,10 +108,10 @@ const getEmailAndAnswersByEmailLogId = (id) => {
 
 
 const getUserSentDeletedEmails=()=>{
-  return apiAxios.get("EmailLogs/GetUserSenDeletedtEmails")
+  return apiAxios.get("EmailLogs/GetUserSendedDeletedEmails")
 }
 const getUserReceivedDeletedEmails=()=>{
-  return apiAxios.get("EmailLogs/GetUserReceivedDeletedEmails")
+  return apiAxios.get("EmailLogs/GetUserRecievedDeletedEmails")
 }
 
 export {

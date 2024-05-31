@@ -5,22 +5,21 @@ const APIURL = import.meta.env.VITE_API_URL;
 // Retrieve user from local storage
 const getInitialUser = () => {
   const storedUser = localStorage.getItem("user")
-  //return storedUser ? JSON.parse(storedUser) : ""
 }
 //Login
 export const loginUser = createAsyncThunk("user/login", async (registrationNumber) => {
-  console.log("Auth Slice'ın login fonk")
+ // console.log("Auth Slice'ın login fonk")
   //console.log(registrationNumber)
   const request = await axios.post(
     `http://localhost:5232/FlowWingAPI/api/Auth/login/${registrationNumber}`
     
   ) 
-  console.log("istek atıldı")
+  //console.log("istek atıldı")
   const response = await request.data 
- // console.log(registrationNumber)
+  console.log(response)
   localStorage.setItem("user", JSON.stringify(response))
   return response; // action.payload contains whatever we returned here
- 
+
 })
 // Register
 export const registerUser = createAsyncThunk(

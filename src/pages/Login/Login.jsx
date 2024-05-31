@@ -49,7 +49,7 @@ const Login = () => {
 
           {/* SUBMIT BUTTON */}
 
-          <button className="sign-in-btn" onClick={() => handleLogin()}>
+          <button type="button" className="sign-in-btn" onClick={() => handleLogin()}>
             {loading ? (
               <span className="loading loading-dots loading-lg"></span>
             ) : (

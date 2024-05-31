@@ -119,13 +119,14 @@ const Compose = () => {
     recipientsEmail: Yup.string()
       .required("Mail adresi girmek zorunludur")
       .matches(
-        /^[^\s@]+@[^\s@]+\.[^\s@]+(\s*,\s*[^\s@]+@[^\s@]+\.[^\s@]+)*$/,
-        "Geçersiz mail adresi, birden fazla maili virgülle ayırın."
+        /^[^\s@]+@beko\.com(\s*,\s*[^\s@]+@beko\.com)*$/,
+        "Geçersiz mail adresi, birden fazla maili virgülle ayırın ve beko.com domaini kullanın."
       ),
-
+  
     emailSubject: Yup.string().required("Konu giriniz"),
     emailBody: Yup.string().required("İçerik giriniz")
-  })
+  });
+  
 
   // FORMIK
 
@@ -233,7 +234,7 @@ const Compose = () => {
           >
             <MenuItem value={"00-01-00-00"}>Haftada bir</MenuItem>
             <MenuItem value={"01-00-00-00"}>Ayda bir</MenuItem>
-            <MenuItem value={"00-00-00-01"}>Dakikada bir</MenuItem>
+            <MenuItem value={"00-00-01-00"}>Günde bir</MenuItem>
           </Select>
           <h2>Ne zamana kadar gönderilsin?</h2>
           <DatePicker

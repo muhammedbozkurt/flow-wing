@@ -4,6 +4,7 @@ import { Avatar, Button, Divider, Dropdown, Menu } from "antd"
 import { Icon } from "@iconify/react"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import {
+  ADMIN_ROUTE,
   COMPOSE_NEW_ROUTE,
   HOME_ROUTE,
   SENT_ROUTE,
@@ -43,6 +44,11 @@ const items = [
     <Link to={TRASH_ROUTE}>Çöp Kutusu</Link>,
     "4",
     <Icon icon="bi:trash" />
+  ),
+  getItem(
+    <Link to={ADMIN_ROUTE}>Admin</Link>,
+    "5",
+    <Icon icon="ri:admin-line"  style={{color: "black"}} />
   )
 ]
 const Sidebar = () => {
