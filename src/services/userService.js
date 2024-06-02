@@ -4,21 +4,27 @@ const getUsers = () => {
   return apiAxios.get("Users")
 }
 
+ const addUser = (values) => {
+  const  {
+    sicil,
+    roleName,
+    isApplicationUser
+  }=values 
 
-const addUser=(credentials)=>{
-  return apiAxios.post("Users",credentials,
-  {
+  const credentials = {
+    sicil: String(sicil),
+    roleName: String(roleName),
+    isApplicationUser: parseInt(isApplicationUser, 10),  // Ensure it is an integer
+  };
+console.log("gönderilen json: " , credentials)
+  return apiAxios.post("addUser", credentials, {
     headers: {
-      "Content-Type": "application/json"
+      'Accept': 'application/json'
     }
-  })
-}
+  });
+};
 const deleteUser = (sicil) => {
-  return apiAxios.delete(`Users?sicil=${sicil}`);
+  return apiAxios.delete(`Users?sicil=${sicil}`)
 }
 
-
-
-
-export { getUsers ,addUser,deleteUser};
-
+export { getUsers, addUser, deleteUser }

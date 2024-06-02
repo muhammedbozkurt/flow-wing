@@ -10,7 +10,7 @@ const ProtectedRouteAdmin = (props) => {
     navigate(-1);
   }
 
-  if (!user) return <Navigate to="/" />;
+  if (!user) return <Navigate to="/login" />;
 
  
 

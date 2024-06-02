@@ -1,26 +1,25 @@
-import { Divider, Input, Select } from "antd"
-import React, { useState } from "react"
-import "./admin.css"
-import { addUser, deleteUser } from "../../services/userService"
+import { Divider, Input, Select } from 'antd';
+import React, { useState } from 'react';
+import './admin.css';
+import { addUser, deleteUser } from '../../services/userService';
 
 const Admin = () => {
-  const [sicil, setSicil] = useState("")
-  const [roleName, setRoleName] = useState("User")
-  const [isApplicationUser, setIsApplicationUser] = useState("1")
-  const [deletingSicil, setDeletingSicil] = useState("")
+  const [sicil, setSicil] = useState('');
+  const [roleName, setRoleName] = useState('User');
+  const [isApplicationUser, setIsApplicationUser] = useState('1');
+  const [deletingSicil, setDeletingSicil] = useState('');
 
   const handleAddUser = () => {
-    const credentials = {
-      sicil,
-      roleName,
-      isApplicationUser: isApplicationUser === "1" ? 1 : 0
+    const values={
+      sicil,roleName,isApplicationUser
     }
-    addUser(credentials)
-  }
+    addUser(values);
+    console.log("admin sayfasındaki credentials: ",sicil,roleName,isApplicationUser)
+  };
 
   const handleDeleteUser = () => {
-    deleteUser(deletingSicil.toUpperCase())
-  }
+    deleteUser(deletingSicil.toUpperCase());
+  };
 
   return (
     <div className="admin-page-content">
@@ -36,22 +35,22 @@ const Admin = () => {
         />
         <label>Rol</label>
         <Select
-          defaultValue="User"
+        
           style={{ width: 120 }}
           onChange={(value) => setRoleName(value)}
           options={[
-            { value: "User", label: "User" },
-            { value: "admin", label: "Admin" }
+            { value: 'User', label: 'User' },
+            { value: 'Admin', label: 'Admin' },
           ]}
         />
         <label>Application user mı</label>
         <Select
-          defaultValue="1"
+          
           style={{ width: 120 }}
           onChange={(value) => setIsApplicationUser(value)}
           options={[
-            { value: "1", label: "Evet" },
-            { value: "0", label: "Hayır" }
+            { value: 1, label: 'Evet' },
+            { value: 0, label: 'Hayır' },
           ]}
         />
         <button
@@ -78,7 +77,7 @@ const Admin = () => {
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Admin
+export default Admin;

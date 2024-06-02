@@ -59,10 +59,10 @@ const deleteSentEmail = (id) => {
   return apiAxios.delete("EmailLogs/" + id)
 }
 const deleteScheduledEmail = (id) => {
-  return apiAxios.delete("ScheduledEmails/ScheduledEmail/" + id)
+  return apiAxios.delete("EmailLogs/" + id)
 }
 const deleteRepeatingEmail = (id) => {
-  return apiAxios.delete("ScheduledEmails/ScheduledRepeatingEmail/" + id)
+  return apiAxios.delete("EmailLogs/" + id)
 }
 const getEmailById = (id) => {
   return apiAxios.get("EmailLogs/" + id)

@@ -46,7 +46,7 @@ if (!mails) {
   return <Spinner />
 }
   return (
-    <div className="sent-mail-page-content">
+    <div className="inbox-page-content">
       <h2>Çöp Kutusu</h2>
       <div className="inbox">
         {mails.map((item, index) => {
