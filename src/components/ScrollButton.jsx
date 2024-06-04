@@ -8,9 +8,9 @@ const ScrollButton = () => {
   useEffect(() => {
     const toggleVisible = () => {
       const scrolled = document.documentElement.scrollTop
-      if (scrolled > 300) {
+      if (scrolled > 100) {
         setVisible(true)
-      } else if (scrolled <= 300) {
+      } else if (scrolled <= 100) {
         setVisible(false)
       }
     }
@@ -34,6 +34,7 @@ const ScrollButton = () => {
 
   return (
     <button
+    className="scroll-btn"
       style={{ display: visible ? "inline" : "none" }}
       onClick={scrollToTop}
     >

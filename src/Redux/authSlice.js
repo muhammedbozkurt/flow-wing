@@ -2,10 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import axios from "axios"
 const APIURL = import.meta.env.VITE_API_URL;
 
-// Retrieve user from local storage
-const getInitialUser = () => {
-  const storedUser = localStorage.getItem("user")
-}
 //Login
 export const loginUser = createAsyncThunk("user/login", async (registrationNumber) => {
  // console.log("Auth Slice'ın login fonk")
@@ -46,9 +42,9 @@ export const logoutUser = createAsyncThunk("user/logout", async () => {
 const authSlice = createSlice({
   name: "user",
   initialState: {
-    user: getInitialUser(),
-    loading: false,
-    error: null
+    user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null,
+  loading: false,
+  error: null
   },
 
   extraReducers: (builder) => {

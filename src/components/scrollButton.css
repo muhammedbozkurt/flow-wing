@@ -1,8 +1,17 @@
-button {
+.scroll-btn {
   display: flex;
   justify-content: center;
   align-items: center;
   border: none;
   background-color: inherit;
   cursor: pointer;
+  position: fixed;
+  bottom: 20px; /* Sayfanın altından uzaklık */
+  right: 20px;  /* Sayfanın sağından uzaklık */
+  z-index: 1000; /* Üstte görünmesi için yüksek z-index */
+  border-radius: 50%; /* Düğmenin kenarlarını yuvarlak yapar */
+  padding: 10px; /* İç boşluk */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Hafif gölge efekti */
+  background-color: white; /* Arka plan rengi */
 }
+

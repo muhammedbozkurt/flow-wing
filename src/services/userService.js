@@ -19,7 +19,8 @@ const getUsers = () => {
 console.log("gönderilen json: " , credentials)
   return apiAxios.post("addUser", credentials, {
     headers: {
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'  // Add Content-Type header
     }
   });
 };

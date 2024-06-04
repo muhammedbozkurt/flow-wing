@@ -36,8 +36,10 @@ const Sidebar = () => {
   const user = useSelector((state) => state.user.user);
 
   useEffect(() => {
-    // Check if the user is an admin
-    setIsAdmin(user.role.includes("Admin"));
+    if (user) {
+      // Check if the user is an admin
+      setIsAdmin(user.role.includes("Admin"));
+    }
   }, [user]);
 
   // Logout function

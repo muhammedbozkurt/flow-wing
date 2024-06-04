@@ -6,6 +6,7 @@ import { Link } from "react-router-dom"
 import { TextField } from "@mui/material"
 import { useDispatch, useSelector } from "react-redux"
 import { loginUser } from "../../Redux/authSlice"
+import alertify from "alertifyjs"
 
 const Login = () => {
   const [registrationNumber, setRgeistrationNumber] = useState("")
@@ -16,12 +17,17 @@ const Login = () => {
   // login handler function
   const handleLogin = () => {
     dispatch(loginUser(registrationNumber)).then((result) => {
-        //console.log("handle login login sayfasındaki ")
-      if (result.payload) {
-        navigate("/home")
+      if (result.meta.requestStatus === 'fulfilled') {
+        navigate("/home");
+      } else if (result.meta.requestStatus === 'rejected' && result.error.message.includes('404')) {
+    alertify.error("Kullanıcı bulunamadı")
+      } else {
+      
+        console.error(result.error.message);
       }
-    })
-  }
+    });
+  };
+  
 
 
   return (
@@ -43,9 +49,9 @@ const Login = () => {
           </div>
 
           {/* LINK TO REGISTER PAGE IF USER DOESN'T HAVE AN ACCOUNT */}
-          <div className="register-link">
+          {/* <div className="register-link">
             Hesabınız yok mu? <Link to="/register">Kayıt Ol</Link>
-          </div>
+          </div> */}
 
           {/* SUBMIT BUTTON */}
 
