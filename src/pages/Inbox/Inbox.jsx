@@ -19,6 +19,11 @@ import {
 import { formatDate, getText } from "../../helpers"
 import ReactQuill from "react-quill"
 import { HOME_ROUTE } from "../../routes/index"
+import Attachments from "../../components/Attachments/Attachments"
+import ForwardedFrom from "../../components/ForwardedFromSection/ForwardedFrom"
+import MailSender from "../../components/MailParts/MailSender"
+import MailSubject from "../../components/MailParts/MailSubject"
+import MailBody from "../../components/MailParts/MailBody"
 
 const Inbox = () => {
   const [mail, setMail] = useState(null)
@@ -116,12 +121,12 @@ const Inbox = () => {
     })
 
     getForwardedMailById(forwardedMailId).then((res) => {
-    //  console.log("forwarded mail ", res.data.forwardedEmailLog)
+      //  console.log("forwarded mail ", res.data.forwardedEmailLog)
       setForwardedFrom(res.data.emailLog)
       setForwardedMailId(res.data.emailLog.forwardedFrom)
     })
 
-   // console.log("answerArrayin attchmnt infosu", answerArray.map(answer=>{answer.attachmentInfos?.map(attachmentInfo=>console.log(attachmentInfo))})) //4. elemanın atchmnt'ı olduğu için geliyor burası
+    // console.log("answerArrayin attchmnt infosu", answerArray.map(answer=>{answer.attachmentInfos?.map(attachmentInfo=>console.log(attachmentInfo))})) //4. elemanın atchmnt'ı olduğu için geliyor burası
     return () => {}
   }, [mail?.forwardedFrom])
 
@@ -133,7 +138,7 @@ const Inbox = () => {
   const handleDelete = () => {
     if (mail.isScheduled === true) {
       deleteScheduledEmail(mail.id).then((res) => {
-      //  console.log(res)
+        //  console.log(res)
 
         if (res.status === 200) {
           alertify.success("Mail silindi.")
@@ -142,7 +147,7 @@ const Inbox = () => {
       })
     } else if (mail.repeatingLogId !== null) {
       deleteRepeatingEmail(mail.id).then((res) => {
-       // console.log(res)
+        // console.log(res)
 
         if (res.status === 200) {
           alertify.success("Mail silindi.")
@@ -184,7 +189,7 @@ const Inbox = () => {
         alertify.success("Mail gönderildi")
       } else alertify.error("Gönderme başarısız oldu")
     })
-   // console.log(answer)
+    // console.log(answer)
     navigate()
   }
 
@@ -355,6 +360,7 @@ const Inbox = () => {
             />
           </form>
         </Modal>
+
         <Tooltip title="Sil" arrow>
           <div className="icons">
             <button className="mail-action-btns" onClick={handleDelete}>
@@ -370,25 +376,17 @@ const Inbox = () => {
       </div>
       <Divider />
       {/* MAIL SECTION */}
-      <div className="mail-sender">
-        <div className="user-icon-inbox">
-          <Avatar
-            size={64}
-            style={{ backgroundColor: "#191970 ", color: "#add8e6 " }}
-          >
-            <span>{user.charAt(0)}</span>
-          </Avatar>
-        </div>
-        <div>
-          <div className="mail-sender-email">{mail.senderEmail}</div>
-        </div>
-      </div>
+     <MailSender
+      user={user}
+      mail={mail}
+     />
 
-      <div className="mail-title">
-        <p>{mail.emailSubject}</p>
-      </div>
-      <div className="mail-body" dangerouslySetInnerHTML={{ __html: getText(mail.sentEmailBody) }} style={{ width: '90%' }} />
-
+    <MailSubject
+      mail={mail}
+    />
+      <MailBody
+        mail={mail}
+      />
 
       {/* MAIL ATTACHMENT SECTION */}
       <div className="mail-attachments">
@@ -396,80 +394,7 @@ const Inbox = () => {
         <div className="inbox-mail-attachment-content">
           {attachments?.map((attachments) => (
             <div className="inbox-mail-attachment">
-              <div>
-                {" "}
-                <Icon icon="et:attachments" width="16" height="16" />
-                {attachments.contentType === "text/plain" && (
-                  <div>
-                    <a
-                      href={`data:text/plain;base64,${attachments.data}`}
-                      download={attachments.fileName}
-                    >
-                      {attachments.fileName}
-                    </a>
-                  </div>
-                )}
-                {attachments.contentType ===
-                  "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && (
-                  <a
-                    href={`data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,${attachments.data}`}
-                    target="_blank"
-                    download={attachments.fileName}
-                  >
-                    {attachments.fileName}
-                  </a>
-                )}
-                {attachments.contentType === "application/pdf" && (
-                  <a
-                    href={`data:application/pdf;base64,${attachments.data}`}
-                    target="_blank"
-                  >
-                    {attachments.fileName}{" "}
-                  </a>
-                )}
-                {["image/jpeg", "image/png", "image/gif"].includes(
-                  attachments.contentType
-                ) && (
-                  <a
-                    href={`data:${attachments.contentType};base64,${attachments.data}`}
-                    target="_blank"
-                  >
-                    {attachments.fileName}{" "}
-                  </a>
-                )}
-                {["application/octet-stream", "application/zip"].includes(
-                  attachments.contentType
-                ) && (
-                  <div>
-                    <a
-                      href={`data:application/octet-stream;base64,${attachments.data}`}
-                      download={attachments.fileName}
-                    >
-                      {attachments.fileName}
-                    </a>
-                  </div>
-                )}
-              </div>{" "}
-              {/* İndirme Düğmesi */}
-              <button
-                className="attachment-download-btn"
-                onClick={() => {
-                  const link = document.createElement("a")
-                  link.href = `data:${attachments.contentType};base64,${attachments.data}`
-                  link.download = attachments.fileName
-                  document.body.appendChild(link)
-                  link.click()
-                  document.body.removeChild(link)
-                }}
-              >
-                <Icon
-                  icon="material-symbols:download"
-                  width="30"
-                  height="30"
-                  style={{ color: "#546e7a " }}
-                />
-              </button>
-              {}{" "}
+              <Attachments attachments={attachments} />
             </div>
           ))}
         </div>
@@ -498,66 +423,61 @@ const Inbox = () => {
 
               {/* MODAL FOR FORWARD EMAIL */}
               <Modal
-                open={forwardMOdalOpen}
-                title="İLET"
-                onOk={handleForwardOk}
-                onCancel={handleCancel}
-                footer={[
-                  <Button key="back" onClick={handleCancel}>
-                    Geri
-                  </Button>,
-                  <Button key="submit" type="primary" onClick={handleForwardOk}>
-                    Gönder
-                  </Button>
-                ]}
-              >
-                <form
-                  className="reply-modal-form"
-                  enctype="multipart/form-data"
-                >
-                  <label>Kime: </label>{" "}
-                  <input
-                    style={{ height: 50, border: "none" }}
-                    required
-                    onChange={(e) => {
-                      setForwardTo(e.target.value)
-                    }}
-                  />
-                  <label>Mesaj: </label>{" "}
-                  <ReactQuill
-                    modules={toolbarOptions}
-                    theme="bubble"
-                    name="emailBody"
-                    style={{ height: 150, boxShadow: "rgba(0, 0, 0, 0.1)" }}
-                    onChange={(value) => {
-                      setForwardedEmailMessage(value)
-                    }}
-                    required
-                  />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <span>-------Şu mesajdan iletilecek-------</span>
-                  <p>
-                    {" "}
-                    <span>Gönderen:</span> {mail.senderEmail}
-                  </p>
-                  <p>
-                    {" "}
-                    <span>Tarih: </span> {formatDate(mail.sentDateTime)}{" "}
-                  </p>
-                  <p>
-                    {" "}
-                    <span>Konu:</span> {mail.emailSubject}
-                  </p>
-                  <p
-                    dangerouslySetInnerHTML={{
-                      __html: getText(mail.sentEmailBody)
-                    }}
-                  />
-                </form>
-              </Modal>
+          open={forwardMOdalOpen}
+          title="İLET"
+          onOk={handleForwardOk}
+          onCancel={handleCancel}
+          footer={[
+            <Button key="back" onClick={handleCancel}>
+              Geri
+            </Button>,
+            <Button key="submit" type="primary" onClick={handleForwardOk}>
+              Gönder
+            </Button>
+          ]}
+        >
+          <form className="forward-modal-form">
+            <label>Kime: </label>{" "}
+            <input
+              style={{ height: 50, border: "none" }}
+              required
+              onChange={(e) => {
+                setForwardTo(e.target.value)
+              }}
+            />
+            <label>Mesaj: </label>{" "}
+            <ReactQuill
+              modules={toolbarOptions}
+              theme="bubble"
+              name="emailBody"
+              style={{ height: 150, boxShadow: "rgba(0, 0, 0, 0.1)" }}
+              onChange={(value) => {
+                setForwardedEmailMessage(value)
+              }}
+              required
+            />
+            <br />
+            <br />
+            <br />
+            <br />
+            <span>-------Şu mesaj iletilecek-------</span>
+            <p>
+              {" "}
+              <span>Gönderen:</span> {mail.senderEmail}
+            </p>
+            <p>
+              {" "}
+              <span>Tarih: </span> {formatDate(mail.sentDateTime)}{" "}
+            </p>
+            <p>
+              {" "}
+              <span>Konu:</span> {mail.emailSubject}
+            </p>
+            <p
+              dangerouslySetInnerHTML={{ __html: getText(mail.sentEmailBody) }}
+            />
+          </form>
+        </Modal>
 
               <Tooltip title="Yanıtla" arrow onClick={showModal}>
                 <div className="icons">
@@ -668,210 +588,22 @@ const Inbox = () => {
             <div className="mail-title">
               <p>{answer?.emailLog.emailSubject}</p>
             </div>
-            <div className="mail-subject">
-              <p
-                className="mail-answer-mail-body"
-                dangerouslySetInnerHTML={{
-                  __html: getText(answer?.emailLog.sentEmailBody)
-                }}
-              />
-            </div>
+           <MailBody/>
           </div>{" "}
           {/* MAIL ANSWERS ATTACHMENTS */}
           {answer.attachmentInfos?.map((attachments) => (
             <div className="inbox-mail-attachment">
-              <div>
-                {" "}
-                <Icon icon="et:attachments" width="16" height="16" />
-                {attachments.contentType === "text/plain" && (
-                  <div>
-                    <a
-                      href={`data:text/plain;base64,${attachments.data}`}
-                      download={attachments.fileName}
-                    >
-                      {attachments.fileName}
-                    </a>
-                  </div>
-                )}
-                {attachments.contentType ===
-                  "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && (
-                  <a
-                    href={`data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,${attachments.data}`}
-                    target="_blank"
-                    download={attachments.fileName}
-                  >
-                    {attachments.fileName}
-                  </a>
-                )}
-                {attachments.contentType === "application/pdf" && (
-                  <a
-                    href={`data:application/pdf;base64,${attachments.data}`}
-                    target="_blank"
-                  >
-                    {attachments.fileName}{" "}
-                  </a>
-                )}
-                {["image/jpeg", "image/png", "image/gif"].includes(
-                  attachments.contentType
-                ) && (
-                  <a
-                    href={`data:${attachments.contentType};base64,${attachments.data}`}
-                    target="_blank"
-                  >
-                    {attachments.fileName}{" "}
-                  </a>
-                )}
-                {["application/octet-stream", "application/zip"].includes(
-                  attachments.contentType
-                ) && (
-                  <div>
-                    <a
-                      href={`data:application/octet-stream;base64,${attachments.data}`}
-                      download={attachments.fileName}
-                    >
-                      {attachments.fileName}
-                    </a>
-                  </div>
-                )}{" "}
-                {/* İndirme Düğmesi */}
-                <button
-                  className="attachment-download-btn"
-                  onClick={() => {
-                    const link = document.createElement("a")
-                    link.href = `data:${attachments.contentType};base64,${attachments.data}`
-                    link.download = attachments.fileName
-                    document.body.appendChild(link)
-                    link.click()
-                    document.body.removeChild(link)
-                  }}
-                >
-                  <Icon
-                    icon="material-symbols:download"
-                    width="30"
-                    height="30"
-                    style={{ color: "#546e7a " }}
-                  />
-                </button>
-              </div>
+              <Attachments attachments={attachments} />
               {}{" "}
             </div>
           ))}
-           
-             
-           
-            
-          
           <Divider />
         </div>
       ))}
 
       {/* IS FORWARDED SECTION */}
 
-      {forwardedFrom ? (
-        <div className="forwarded-from-section">
-          <div>
-            {" "}
-            <span>----- Şu mesaj iletildi -----</span>
-          </div>
-          <div>
-            <span>Gönderen: </span>
-            <p>{forwardedFrom.senderEmail}</p>{" "}
-          </div>
-          <div>
-            {" "}
-            <span>Tarih: </span>
-            <p> {formatDate(forwardedFrom.sentDateTime)}</p>
-          </div>
-          <div>
-            <span>Konu: </span>
-            <p> {forwardedFrom.emailSubject}</p>
-          </div>
-          <p
-            dangerouslySetInnerHTML={{
-              __html: getText(forwardedFrom.sentEmailBody)
-            }}
-          />
-          {/* FORWARDED FROMS ATTACHMENT SECTION */}
-          {forwardedMailAttachments?.map((attachments) => (
-            <div className="inbox-mail-attachment">
-              <div>
-                {" "}
-                <Icon icon="et:attachments" width="16" height="16" />
-                {attachments.contentType === "text/plain" && (
-                  <div>
-                    <a
-                      href={`data:text/plain;base64,${attachments.data}`}
-                      download={attachments.fileName}
-                    >
-                      {attachments.fileName}
-                    </a>
-                  </div>
-                )}
-                {attachments.contentType ===
-                  "application/vnd.openxmlformats-officedocument.wordprocessingml.document" && (
-                  <a
-                    href={`data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,${attachments.data}`}
-                    target="_blank"
-                    download={attachments.fileName}
-                  >
-                    {attachments.fileName}
-                  </a>
-                )}
-                {attachments.contentType === "application/pdf" && (
-                  <a
-                    href={`data:application/pdf;base64,${attachments.data}`}
-                    target="_blank"
-                  >
-                    {attachments.fileName}{" "}
-                  </a>
-                )}
-                {["image/jpeg", "image/png", "image/gif"].includes(
-                  attachments.contentType
-                ) && (
-                  <a
-                    href={`data:${attachments.contentType};base64,${attachments.data}`}
-                    target="_blank"
-                  >
-                    {attachments.fileName}{" "}
-                  </a>
-                )}
-                {["application/octet-stream", "application/zip"].includes(
-                  attachments.contentType
-                ) && (
-                  <div>
-                    <a
-                      href={`data:application/octet-stream;base64,${attachments.data}`}
-                      download={attachments.fileName}
-                    >
-                      {attachments.fileName}
-                    </a>
-                  </div>
-                )}{" "}
-                {/* İndirme Düğmesi */}
-                <button
-                  className="attachment-download-btn"
-                  onClick={() => {
-                    const link = document.createElement("a")
-                    link.href = `data:${attachments.contentType};base64,${attachments.data}`
-                    link.download = attachments.fileName
-                    document.body.appendChild(link)
-                    link.click()
-                    document.body.removeChild(link)
-                  }}
-                >
-                  <Icon
-                    icon="material-symbols:download"
-                    width="30"
-                    height="30"
-                    style={{ color: "#546e7a " }}
-                  />
-                </button>
-              </div>
-              {}{" "}
-            </div>
-          ))}
-        </div>
-      ) : null}
+      {forwardedFrom ? <ForwardedFrom forwardedFrom={forwardedFrom} forwardedMailAttachments={forwardedMailAttachments} /> : null}
     </div>
   )
 }

@@ -17,7 +17,7 @@ const Home = () => {
   // Get all e-mails
   useEffect(() => {
     getMails().then((response) => {
-      console.log("Gelen mailler:" ,response.data)
+     // console.log("Gelen mailler:" ,response.data)
       const sortedMails = response.data.userEmails.sort(
         (a, b) =>
           new Date(b.emailLog.sentDateTime) - new Date(a.emailLog.sentDateTime)

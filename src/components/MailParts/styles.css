@@ -1,0 +1,10 @@
+
+.mail-body{
+          overflow-x: scroll;
+        }.mail-title {
+          display: inline-flex;
+          justify-content: space-between;
+          align-items: stretch;
+          color: #45474b;
+        }
+        

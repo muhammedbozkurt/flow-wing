@@ -18,12 +18,6 @@
   height: fit-content;
 }
 
-.mail-title {
-  display: inline-flex;
-  justify-content: space-between;
-  align-items: stretch;
-  color: #45474b;
-}
 
 .mail-actions {
   display: flex;
@@ -121,12 +115,4 @@
   display: flex;
   flex-direction: row;
   width: 700px;
-}
-.attachment-download-btn {
-  width: 60px;
-  height: 35px;
-  margin-left: 20px;
-}
-.mail-body{
-  overflow-x: scroll;
 }
